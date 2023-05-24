@@ -7,7 +7,7 @@ void simulator::step(float step_lenght){
 }
 
 simulator::simulator(float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size)
-        : bb(2,1,bbx,bby,bbangle,bbalpha), trail(&bb,1,0){
+        : bb(bbwb,bbr2h,bbx,bby,bbangle,bbalpha), trail(&bb,followerlen,followerbeta){
     
 };
 
