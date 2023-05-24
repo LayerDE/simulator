@@ -31,15 +31,15 @@ float follower::beta(){
 }
 
 float follower::calc_alpha_const(float beta){
-    float V_bw = bbc->get_r2h()/tan(beta);
-    return atan(bbc->get_wb()/V_bw);
+    float V_bw = connected_car->get_r2h()/tan(beta);
+    return atan(connected_car->get_wb()/V_bw);
 }
 
 float follower::calc_beta_const(float alpha_steer){
     if(alpha_steer == 0.0)
         return 0.0;
-    float V_bw = car_wheelbase/tan(fabs(alpha_steer));
-    return tan(bbc->get_r2h()/V_bw);
+    float V_bw = connected_car->get_wb()/tan(fabs(alpha_steer));
+    return tan(connected_car->get_r2h()/V_bw);
     //float delta_2 = sin(hitch2axle/sqrt(pow2(V_bw)+pow2(car2hitch)));
     //return delta_1;
 }
