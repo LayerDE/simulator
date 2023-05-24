@@ -7,6 +7,7 @@ class follower : public position{
         car* connected_car;
         float lenght;
         float beta();
+        float beta(float car_direction);
         position last_car_pos;
         float calc_alpha_const(float beta);
         float calc_beta_const(float alpha_steer);

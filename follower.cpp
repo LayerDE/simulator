@@ -20,7 +20,21 @@ bool follower::check_connection(){
 void follower::set_angle(){
 
 }
+
+static inline float pow2(float x){
+  return x*x;
+}
+
 void follower::move(){
+    float _x = connected_car->x-last_car_pos.x;
+    float _y = connected_car->y-last_car_pos.y;
+    float _beta = beta(last_car_pos->direction)-(tan(_y/_x)-last_car_pos->direction)
+    float _s = sqrt(pow2(connected_car->x-last_car_pos.x) + pow2(connected_car->y-last_car_pos.y));
+    float h = sin(_beta)*_s;
+    direction = atan(1)*2-_beta+acos((sin(_beta)-_s)/lenght)-connected_car->direction;
+    x = connected_car->x;
+    y = connected_car->y;
+    move_straight(lenght,0);
     last_car_pos.x = connected_car->x;
     last_car_pos.y = connected_car->y;
     last_car_pos.direction = connected_car->direction;
@@ -29,6 +43,11 @@ void follower::move(){
 float follower::beta(){
     return direction - connected_car->direction;
 }
+
+float follower::beta(float car_direction){
+    return direction - connected_car->direction;
+}
+
 
 float follower::calc_alpha_const(float beta){
     float V_bw = connected_car->get_r2h()/tan(beta);
