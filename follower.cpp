@@ -28,7 +28,7 @@ static inline float pow2(float x){
 void follower::move(){
     float _x = connected_car->x-last_car_pos.x;
     float _y = connected_car->y-last_car_pos.y;
-    float _beta = beta(last_car_pos->direction)-(tan(_y/_x)-last_car_pos->direction)
+    float _beta = beta(last_car_pos.direction)-(tan(_y/_x)-last_car_pos.direction);
     float _s = sqrt(pow2(connected_car->x-last_car_pos.x) + pow2(connected_car->y-last_car_pos.y));
     float h = sin(_beta)*_s;
     direction = atan(1)*2-_beta+acos((sin(_beta)-_s)/lenght)-connected_car->direction;
