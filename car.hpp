@@ -6,6 +6,7 @@ class car : public position{
         float wheelbase;
         float rear2hitch;
     public:
+        float get_wb();
         float get_r2h();
         car(float wb, float rh, float hx, float hy, float hdirection, float halpha);
         float alpha;

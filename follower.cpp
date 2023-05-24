@@ -1,7 +1,7 @@
 #include "position.hpp"
 #include "car.hpp"
 #include "follower.hpp"
-
+#include <cmath>
 
 follower::follower(car* bbc, float len, float hbeta)
         : position(bbc->x,bbc->y,bbc->direction), last_car_pos(bbc->x,bbc->y,bbc->direction){
@@ -15,7 +15,7 @@ follower::follower(car* bbc, float len, float hbeta)
 
 
 bool follower::check_connection(){
-
+    return true;
 }
 void follower::set_angle(){
 
@@ -28,4 +28,18 @@ void follower::move(){
 
 float follower::beta(){
     return direction - connected_car->direction;
+}
+
+float follower::calc_alpha_const(float beta){
+    float V_bw = bbc->get_r2h()/tan(beta);
+    return atan(bbc->get_wb()/V_bw);
+}
+
+float follower::calc_beta_const(float alpha_steer){
+    if(alpha_steer == 0.0)
+        return 0.0;
+    float V_bw = car_wheelbase/tan(fabs(alpha_steer));
+    return tan(bbc->get_r2h()/V_bw);
+    //float delta_2 = sin(hitch2axle/sqrt(pow2(V_bw)+pow2(car2hitch)));
+    //return delta_1;
 }

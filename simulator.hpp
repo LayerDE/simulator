@@ -16,7 +16,7 @@ class simulator{
         void step(float move_lenght);
 
     public:
-        simulator(float bbx, float bby, float bbangle, float bbalpha, float followerx, float followery, float step_size);
+        simulator(float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size);
         void simulate(float lenght);
         void set_output(point_out car,point_out trailer);
 };

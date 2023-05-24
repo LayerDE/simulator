@@ -11,6 +11,11 @@ float car::get_r2h(){
     return rear2hitch;
 }
 
+float car::get_wb(){
+    return wheelbase;
+}
+
+
 void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float &angle)
 {
     if(alpha_steer == 0.0f){

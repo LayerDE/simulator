@@ -8,6 +8,8 @@ class follower : public position{
         float lenght;
         float beta();
         position last_car_pos;
+        float calc_alpha_const(float beta);
+        float calc_beta_const(float alpha_steer);
     public:
         float angle;
 //        follower(float len, float hx, float hy, car* bbc);
