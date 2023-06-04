@@ -9,6 +9,10 @@ void position::move_straight(float lenght, float height){
         y = cos(direction)*height;
 }
 
+void position::move(float move_lenght){
+    move_straight(move_lenght,0);   
+}
+
 position::position(float hx,float hy,float hdirection){
     x = hx;
     y = hy;

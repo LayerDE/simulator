@@ -8,7 +8,8 @@ void simulator::step(float step_lenght){
 
 simulator::simulator(float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size)
         : bb(bbwb,bbr2h,bbx,bby,bbangle,bbalpha), trail(&bb,followerlen,followerbeta){
-    
+    use_output = false;
+    step_lengt = step_size;
 };
 
 void simulator::simulate(float lenght){
@@ -22,6 +23,7 @@ void simulator::simulate(float lenght){
 }
 
 void simulator::set_output(point_out car,point_out trailer){
+    use_output = true;
     bb_out = car;
     trail_out = trailer;
 }
