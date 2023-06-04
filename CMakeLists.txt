@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-idf_component_register(SRCS "position.cpp" "simulatorMain.cpp" "car.cpp" "follower.cpp" "simulator.cpp"
+idf_component_register(SRCS "position.cpp" "car.cpp" "follower.cpp" "simulator.cpp"
                        INCLUDE_DIRS ".")
 
 project(simulator)
