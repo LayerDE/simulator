@@ -15,6 +15,7 @@ float car::get_wb(){
     return wheelbase;
 }
 
+#define SIGN(x) ((x > 0) ? 1 : ((x < 0) ? -1 : 0))
 
 void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float &angle)
 {
@@ -27,7 +28,7 @@ void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float 
         float r_bw = wheelbase/tan(fabs(alpha_steer));
         angle = lenght/r_bw;
         x = sin(angle) * r_bw;
-        y = (1 - cos(angle)) * r_bw;
+        y = (1 - cos(angle)) * r_bw * SIGN(alpha_steer);
     }
 }
 void car::move(float move_lenght){

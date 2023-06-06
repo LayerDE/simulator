@@ -40,7 +40,7 @@ void car_point_out(float x, float y, float direction){
 
 int main(int argc, char *argv[]){
     const float bbwb = 35, bbr2h = 5,followerlen = 60;
-    const float bbx = 0,bby = 0,bbangle = 0,bbalpha = 0;
+    const float bbx = 0,bby = 0,bbangle = 0,bbalpha = 0.01;
     const float followerbeta = 0;
     const float stepsize = 0.001;
     cout << "Simulator init..." << endl;
@@ -50,7 +50,18 @@ int main(int argc, char *argv[]){
     for(int i =0; i < sim_cnt; i++){
         sim[i]->set_output(car_point_out,trail_point_out);
         sim[i]->simulate(10);
-    }        
+    }
+    while(1){
+        cout << "wait" << endl;
+        char wait;
+        cin >> wait;
+        for(int i =0; i < sim_cnt; i++){
+            
+        //sim[i]->set_output(car_point_out,trail_point_out);
+            cout << "sim" << i <<endl;
+            sim[i]->simulate(1);
+        }
+    }      
     cout << "Simulation finished" << endl;
     delete[] sim;
     return 0;

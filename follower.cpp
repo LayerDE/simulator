@@ -10,7 +10,7 @@ follower::follower(car* bbc, float len, float hbeta)
     connected_car = bbc;
     move_straight(-bbc->get_r2h(),0);
     direction+=hbeta;
-    move_straight(-(lenght + connected_car->get_r2h()),0);
+    move_straight(-lenght,0);
 }
 
 
