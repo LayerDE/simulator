@@ -15,8 +15,6 @@ float car::get_wb(){
     return wheelbase;
 }
 
-#define SIGN(x) ((x > 0) ? 1 : ((x < 0) ? -1 : 0))
-
 void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float &angle)
 {
     if(alpha_steer == 0.0f){

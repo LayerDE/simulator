@@ -38,8 +38,8 @@ int main(int argc, char *argv[]){
     const float followerbeta = deg2rad(-2);
 //    const float stepsize = 0.001;
     cout << "Simulator init..." << endl;
-    simulator* sim[sim_cnt = 2] = {new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.01)
-    ,new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.1)};
+    simulator* sim[sim_cnt = 2] = {new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.0001)
+    ,new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.001)};
     cout << "Simulate..." << endl;
     while(1){
         cout << "wait" << endl;
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]){
         for(int i =0; i < sim_cnt; i++){
             sim[i]->set_output(car_point_out, trail_point_out,false);
             cout << "sim[" << i << "]" << endl;
-            sim[i]->simulate(1);
+            sim[i]->simulate(-0.1);
             sim[i]->output();
         }
     }      

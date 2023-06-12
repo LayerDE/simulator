@@ -1,5 +1,5 @@
 #include "simulator.hpp"
-
+#include <cmath>
 void null_out(float x, float y, float direction){}
 
 void simulator::step(float step_lenght){
@@ -13,7 +13,7 @@ simulator::simulator(float bbx, float bby, float bbwb, float bbr2h, float bbangl
     trail = new follower(bb, followerlen, followerbeta);
     use_output = false;
     trail_out = bb_out = null_out;
-    step_lenght = step_size;
+    step_lenght = fabs(step_size);
 }
 
 void simulator::reset(){
@@ -26,13 +26,14 @@ void simulator::output(){
 }
 
 void simulator::simulate(float lenght){
-    if(lenght < step_lenght)
+    if(lenght < 0)
+    if(fabs(lenght) < step_lenght)
         return;
     do{
-        step(step_lenght);
+        step(SIGN(lenght) * step_lenght);
         if(use_output)
             output();
-    }while((lenght -= step_lenght) > 0);
+    }while((lenght -= SIGN(lenght) * step_lenght) > 0);
 }
 
 void simulator::set_output(point_out car,point_out trailer, bool sim_out){
