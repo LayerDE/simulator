@@ -34,11 +34,11 @@ void car_point_out(float x, float y, float direction){
 
 int main(int argc, char *argv[]){
     const float bbwb = 0.35, bbr2h = 0.05, followerlen = 0.60;
-    const float bbx = 0.0, bby = 0.0, bbangle = 0.0, bbalpha = 0.0;
+    const float bbx = 0.0, bby = 0.0, bbangle = 0.0, bbalpha = deg2rad(20);
     const float followerbeta = 0;
-    const float stepsize = 0.001;
+//    const float stepsize = 0.001;
     cout << "Simulator init..." << endl;
-    simulator* sim[sim_cnt = 2] = {new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 1)
+    simulator* sim[sim_cnt = 2] = {new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.01)
     ,new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.1)};
     cout << "Simulate..." << endl;
     while(1){
@@ -46,9 +46,10 @@ int main(int argc, char *argv[]){
         char wait;
         cin >> wait;
         for(int i =0; i < sim_cnt; i++){
-            sim[i]->set_output(car_point_out, trail_point_out);
+            sim[i]->set_output(car_point_out, trail_point_out,false);
             cout << "sim[" << i << "]" << endl;
             sim[i]->simulate(1);
+            sim[i]->output();
         }
     }      
     cout << "Simulation finished" << endl;
