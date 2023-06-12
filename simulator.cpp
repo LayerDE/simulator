@@ -23,10 +23,10 @@ void simulator::output(){
 void simulator::simulate(float lenght){
     if(lenght < step_lengt)
         return;
-    while((lenght -= step_lengt) > 0){
+    do{
         step(step_lengt);
         output();
-    }
+    }while((lenght -= step_lengt) > 0);
 }
 
 void simulator::set_output(point_out car,point_out trailer){
