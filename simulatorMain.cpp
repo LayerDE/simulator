@@ -34,7 +34,7 @@ void car_point_out(float x, float y, float direction){
 
 int main(int argc, char *argv[]){
     const float bbwb = 0.35, bbr2h = 0.05, followerlen = 0.60;
-    const float bbx = 0.0, bby = 0.0, bbangle = 0.0, bbalpha = deg2rad(20);
+    const float bbx = 0.0, bby = 0.0, bbangle = 0.0, bbalpha = 0.0;
     const float followerbeta = 0;
     const float stepsize = 0.001;
     cout << "Simulator init..." << endl;

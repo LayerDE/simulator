@@ -3,10 +3,10 @@
 
 
 void position::move_straight(float lenght, float height){
-        x = cos(direction)*lenght;
-        y = sin(direction)*lenght;
-        x = sin(direction)*height;
-        y = cos(direction)*height;
+        x += cos(direction)*lenght;
+        y += sin(direction)*lenght;
+        x += sin(direction)*height;
+        y += cos(direction)*height;
 }
 
 void position::move(float move_lenght){
