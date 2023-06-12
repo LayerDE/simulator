@@ -24,3 +24,10 @@ position::position(){
     y = 0;
     direction = 0;
 }
+const static double CPP_M_PI = atan(1)*4.0;
+void position::correct_direction(){
+    while(direction > CPP_M_PI)
+        direction -= CPP_M_PI * 2;
+    while(direction < -CPP_M_PI)
+        direction += CPP_M_PI * 2;
+}

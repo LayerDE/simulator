@@ -36,4 +36,5 @@ void car::move(float move_lenght){
     calc_curve(move_lenght,alpha,x,y,a);
     move_straight(x,y);
     direction+=a;
+    correct_direction();
 };

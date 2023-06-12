@@ -6,5 +6,6 @@ class position{
         position(float hx,float hy,float hdirection);
         float x,y,direction;
         virtual void move(float move_lenght);
+        void correct_direction();
         void move_straight(float lenght, float height);
 };

@@ -9,8 +9,8 @@ void simulator::step(float step_lenght){
 }
 
 simulator::simulator(float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size){
-    bb = new car(bbwb,bbr2h,bbx,bby,bbangle,bbalpha);
-    trail = new follower(bb,followerlen,followerbeta);
+    bb = new car(bbwb, bbr2h, bbx, bby, bbangle, bbalpha);
+    trail = new follower(bb, followerlen, followerbeta);
     use_output = false;
     trail_out = bb_out = null_out;
     step_lenght = step_size;
