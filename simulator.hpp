@@ -14,9 +14,10 @@ class simulator{
         car* bb;
         follower* trail;
         void step(float move_lenght);
-
+        void output();
     public:
         simulator(float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size);
         void simulate(float lenght);
         void set_output(point_out car,point_out trailer);
+        void reset_output();
 };

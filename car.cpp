@@ -25,8 +25,8 @@ void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float 
         angle = 0;
     }
     else{
-        float r_bw = wheelbase/tan(fabs(alpha_steer));
-        angle = lenght/r_bw;
+        float r_bw = wheelbase / tan(fabs(alpha_steer));
+        angle = lenght/r_bw; //todo looks toooo wrong
         x = sin(angle) * r_bw;
         y = (1 - cos(angle)) * r_bw * SIGN(alpha_steer);
     }
