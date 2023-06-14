@@ -1,6 +1,6 @@
 #include <cmath>
 #include "position.hpp"
-
+const double CPP_M_PI = atan(1)*4.0;
 
 void position::move_straight(float lenght, float height){
         x += cos(direction)*lenght;
@@ -24,7 +24,7 @@ position::position(){
     y = 0;
     direction = 0;
 }
-const static double CPP_M_PI = atan(1)*4.0;
+
 void position::correct_direction(){
     while(direction > CPP_M_PI)
         direction -= CPP_M_PI * 2;
