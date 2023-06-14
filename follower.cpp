@@ -4,12 +4,13 @@
 #include <cmath>
 
 follower::follower(car* bbc, float len, float hbeta)
-        : position(bbc->x,bbc->y,bbc->direction), last_car_pos(bbc->x,bbc->y,bbc->direction){
+        : position(bbc->x,bbc->y,bbc->direction), last_hitch_pos(){
 
     lenght = len;
     connected_car = bbc;
+    last_hitch_pos = connected_car->get_hitch();
     move_straight(-bbc->get_r2h(),0);
-    direction+=hbeta;
+    direction += hbeta;
     move_straight(-lenght,0);
 }
 
@@ -28,31 +29,43 @@ static inline float pow2(float x){
     //float h = sin(_beta_straight)*_s_straight;
 
 void follower::move(){
-    float _x = connected_car->x - last_car_pos.x;
-    float _y = connected_car->y - last_car_pos.y;
+    position temp = connected_car->get_hitch();
+    float _x = temp.x - last_hitch_pos.x;
+    float _y = temp.y - last_hitch_pos.y;
     float _s_straight = sqrt(pow2(_x) + pow2(_y));
     float _beta_straight = direction - tan(_y/_x);
     float _s_half = cos(_beta_straight) * lenght;
     float direction_tmp;
-    if(_s_half < _s_straight/2){
-        direction_tmp = 0;
+    if(_s_half < _s_straight/2){ // schlechter ansatz
+        if(_beta_straight < CPP_M_PI/2){
+            float h = sin(_beta_straight)*lenght;
+            float len = _s_straight -_s_half;
+            direction_tmp = CPP_M_PI - atan(h/len);
+        }
+        else if(_beta_straight > CPP_M_PI/2){
+            float _beta_straight_tmp = CPP_M_PI - _beta_straight;
+            float len = cos(_beta_straight_tmp)*lenght + _s_straight;
+            float h = sin(_beta_straight)*lenght;
+            direction_tmp = atan(h/len);
+        }
+        else{
+            direction_tmp = atan(lenght/_s_straight);
+        }
     }
     else if(_s_half > _s_straight/2){
-        direction_tmp = CPP_M_PI / 2 - _beta_straight + acos((sin(_beta_straight) - _s_straight) / lenght);
+        float h = sin(_beta_straight) * _s_straight;
+        direction_tmp = CPP_M_PI / 2 - _beta_straight + acos(h / lenght);
     }
     else{ //_s_half == _s_straight/2
         direction_tmp = CPP_M_PI - _beta_straight;
     }
-    x = connected_car->x;
-    y = connected_car->y;
-    direction = connected_car->direction;
-    move_straight(-connected_car->get_r2h(),0);
-    direction = direction_tmp + connected_car->direction;;
+    x = temp.x;
+    y = temp.y;
+    direction = temp.direction;
+    direction = direction_tmp;
     correct_direction();
-    move_straight(-lenght,0);
-    last_car_pos.x = connected_car->x;
-    last_car_pos.y = connected_car->y;
-    last_car_pos.direction = connected_car->direction;
+    move_straight(-lenght, 0);
+    last_hitch_pos = temp;
 }
 
 float follower::beta(){

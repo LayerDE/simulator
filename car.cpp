@@ -15,6 +15,15 @@ float car::get_wb(){
     return wheelbase;
 }
 
+position car::get_hitch(){
+    position out;
+    out.x = x;
+    out.y = y;
+    out.direction = direction;
+    out.move_straight(-get_r2h(),0);
+    return out;
+}
+
 void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float &angle)
 {
     if(alpha_steer == 0.0f){
