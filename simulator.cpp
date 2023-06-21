@@ -26,14 +26,18 @@ void simulator::output(){
 }
 
 void simulator::simulate(float lenght){
-    if(lenght < 0)
-    if(fabs(lenght) < step_lenght)
-        return;
-    do{
-        step(SIGN(lenght) * step_lenght);
+    while(lenght != 0.0){
+        if(fabs(lenght) > step_lenght){
+            step(SIGN(lenght) * step_lenght);
+            lenght -= SIGN(lenght) * step_lenght;
+        }
+        else{
+            step(lenght);
+            lenght = 0.0;
+        }
         if(use_output)
             output();
-    }while((lenght -= SIGN(lenght) * step_lenght) > 0);
+    }
 }
 
 void simulator::set_output(point_out car,point_out trailer, bool sim_out){
