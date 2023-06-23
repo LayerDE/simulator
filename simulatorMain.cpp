@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int sim_cnt;
+const int sim_cnt = 2;
 
 float rad2deg(float in){
   return in * 45.0 / M_PI_4;
@@ -17,7 +17,7 @@ float deg2rad(float in){
 }
 
 
-void _point_out(char* name, float x, float y, float direction){
+void _point_out(const char* name, float x, float y, float direction){
     cout << name <<": " << x <<", " << y << ": " << rad2deg(direction) << endl;
 }
 
@@ -38,7 +38,7 @@ int main(int argc, char *argv[]){
     const float followerbeta = deg2rad(-2);
 //    const float stepsize = 0.001;
     cout << "Simulator init..." << endl;
-    simulator* sim[sim_cnt = 2] = {new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.00001)
+    simulator* sim[sim_cnt] = {new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.00001)
     ,new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.001)};
     cout << "Simulate..." << endl;
     while(1){
@@ -52,6 +52,6 @@ int main(int argc, char *argv[]){
         }
     }      
     cout << "Simulation finished" << endl;
-    delete[] sim;
+    //delete[] sim;
     return 0;
 }

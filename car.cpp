@@ -44,4 +44,4 @@ void car::move(float move_lenght){
     move_straight(x,y);
     direction+=a;
     correct_direction();
-};
+}
