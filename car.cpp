@@ -15,7 +15,7 @@ float car::get_wb(){
     return wheelbase;
 }
 
-position car::get_hitch(){
+position car::get_hitch(){ // needs testing
     position out;
     out.x = x;
     out.y = y;
@@ -24,7 +24,7 @@ position car::get_hitch(){
     return out;
 }
 
-void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float &angle)
+void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float &angle) // works for me
 {
     if(alpha_steer == 0.0f){
         x=lenght;
@@ -33,14 +33,15 @@ void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float 
     }
     else{
         float r_bw = wheelbase / tan(fabs(alpha_steer));
-        angle = lenght/r_bw; //todo looks toooo wrong
+        angle = lenght/r_bw;
         x = sin(angle) * r_bw;
         y = (1 - cos(angle)) * r_bw * SIGN(alpha_steer);
     }
 }
-void car::move(float move_lenght){
+
+void car::move(float move_lenght){ // Works
     float x,y,a;
-    calc_curve(move_lenght,alpha,x,y,a);
+    calc_curve(move_lenght,alpha,x,y,a); //Works
     move_straight(x,y);
     direction+=a;
     correct_direction();
