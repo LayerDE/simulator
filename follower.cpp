@@ -37,18 +37,17 @@ void follower::move(){
     float _s_half = cos(_beta_straight) * lenght;
     float direction_tmp;
     if(_s_half < _s_straight/2){ // schlechter ansatz
+        float h = sin(_beta_straight)*lenght;
         if(_beta_straight < CPP_M_PI/2){
-            float h = sin(_beta_straight)*lenght;
             float len = _s_straight -_s_half;
             direction_tmp = CPP_M_PI - atan(h/len);
         }
         else if(_beta_straight > CPP_M_PI/2){
             float _beta_straight_tmp = CPP_M_PI - _beta_straight;
             float len = cos(_beta_straight_tmp)*lenght + _s_straight;
-            float h = sin(_beta_straight)*lenght;
             direction_tmp = atan(h/len);
         }
-        else{
+        else{ // _beta_straight == CPP_M_PI/2
             direction_tmp = atan(lenght/_s_straight);
         }
     }
@@ -59,13 +58,12 @@ void follower::move(){
     else{ //_s_half == _s_straight/2
         direction_tmp = CPP_M_PI - _beta_straight;
     }
-    x = temp.x;
-    y = temp.y;
-    direction = temp.direction;
-    direction = direction_tmp;
-    correct_direction();
-    move_straight(-lenght, 0);
-    last_hitch_pos = temp;
+    x = temp.x; // set x to hitch pos
+    y = temp.y; // set y to hitch pos
+    direction = direction_tmp; //set direction to new calculated trailer direction
+    correct_direction(); // set direction to ]-pi : pi[
+    move_straight(-lenght, 0); //  move to axle position
+    last_hitch_pos = temp; //set current hitch position to last position for preparing the next move
 }
 
 float follower::beta(){

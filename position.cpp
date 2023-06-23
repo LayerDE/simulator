@@ -23,6 +23,15 @@ position::position(){
     direction = 0;
 }
 
+static float correct_direction_recursive(float in){
+    if(in > CPP_M_PI)
+        return correct_direction_recursive(in - CPP_M_PI * 2);
+    else if(in < -CPP_M_PI)
+        return correct_direction_recursive(in + CPP_M_PI * 2);
+    else
+        return in;
+}
+
 void position::correct_direction(){
     while(direction > CPP_M_PI)
         direction -= CPP_M_PI * 2;
