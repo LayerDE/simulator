@@ -15,7 +15,5 @@ class follower : public position{
         float angle;
 //        follower(float len, float hx, float hy, car* bbc);
         follower(car* bbc, float len, float hbeta);
-        bool check_connection();
-        void set_angle();
         void move();
 };

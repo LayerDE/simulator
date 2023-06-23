@@ -3,23 +3,15 @@
 #include "follower.hpp"
 #include <cmath>
 
-follower::follower(car* bbc, float len, float hbeta)
-        : position(bbc->x,bbc->y,bbc->direction), last_hitch_pos(){
-
+follower::follower(car* bbc, float len, float hbeta) // hbeta is relative
+        : position(), last_hitch_pos(){
     lenght = len;
     connected_car = bbc;
     last_hitch_pos = connected_car->get_hitch();
-    move_straight(-bbc->get_r2h(),0);
-    direction += hbeta;
-    move_straight(-lenght,0);
-}
-
-
-bool follower::check_connection(){
-    return true;
-}
-void follower::set_angle(){
-
+    x = last_hitch_pos.x;
+    y = last_hitch_pos.y;
+    direction += hbeta; // add angle
+    move_straight(-lenght,0); // set trailer to position
 }
 
 static inline float pow2(float x){
@@ -73,7 +65,7 @@ float follower::beta(){
 }
 
 float follower::beta(float car_direction){
-    return direction - connected_car->direction;
+    return direction - car_direction;
 }
 
 
