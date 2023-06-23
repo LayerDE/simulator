@@ -3,10 +3,8 @@
 const double CPP_M_PI = atan(1)*4.0;
 
 void position::move_straight(float lenght, float height){
-        x += cos(direction)*lenght;
-        y += sin(direction)*lenght;
-        x += sin(direction)*height;
-        y += cos(direction)*height;
+        x += cos(direction)*lenght + sin(direction)*height;
+        y += sin(direction)*lenght + cos(direction)*height;
 }
 
 void position::move(float move_lenght){
