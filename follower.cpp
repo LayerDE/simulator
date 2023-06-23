@@ -33,6 +33,8 @@ void follower::move(){
     float _x = temp.x - last_hitch_pos.x;
     float _y = temp.y - last_hitch_pos.y;
     float _s_straight = sqrt(pow2(_x) + pow2(_y));
+    if(_s_straight == 0.0)
+        return; // not moved
     float _beta_straight = direction - tan(_y/_x);
     float _s_half = cos(_beta_straight) * lenght;
     float direction_tmp;
@@ -53,10 +55,10 @@ void follower::move(){
     }
     else if(_s_half > _s_straight/2){
         float h = sin(_beta_straight) * _s_straight;
-        direction_tmp = CPP_M_PI / 2 - _beta_straight + acos(h / lenght);
+        direction_tmp = CPP_M_PI / 2 - _beta_straight + acos(h / lenght); // lenght always positive
     }
     else{ //_s_half == _s_straight/2
-        direction_tmp = CPP_M_PI - _beta_straight;
+        direction_tmp = CPP_M_PI - _beta_straight; // sollte passen
     }
     x = temp.x; // set x to hitch pos
     y = temp.y; // set y to hitch pos
