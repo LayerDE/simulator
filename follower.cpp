@@ -20,6 +20,16 @@ static inline float pow2(float x){
 
     //float h = sin(_beta_straight)*_s_straight;
 
+static inline float get_direction(float x, float y){
+    float retval;
+    if(x == 0.0) // tan has a division by zero
+        retval = CPP_M_PI/2;
+    retval = tan(y/x);
+    if(y < 0)
+        retval += CPP_M_PI;
+    return retval;
+}
+
 void follower::move(){
     position temp = connected_car->get_hitch();
     float _x = temp.x - last_hitch_pos.x;
@@ -27,7 +37,8 @@ void follower::move(){
     float _s_straight = sqrt(pow2(_x) + pow2(_y));
     if(_s_straight == 0.0)
         return; // not moved
-    float _beta_straight = direction - tan(_y/_x);
+    float _straght_direction = get_direction(_x,_y);
+    float _beta_straight = direction - _straght_direction;
     float _s_half = cos(_beta_straight) * lenght;
     float direction_tmp;
     if(_s_half < _s_straight/2){ // schlechter ansatz
@@ -54,7 +65,7 @@ void follower::move(){
     }
     x = temp.x; // set x to hitch pos
     y = temp.y; // set y to hitch pos
-    direction = direction_tmp; //set direction to new calculated trailer direction
+    direction = direction_tmp + _straght_direction; //set direction to new calculated trailer direction
     correct_direction(); // set direction to ]-pi : pi[
     move_straight(-lenght, 0); //  move to axle position
     last_hitch_pos = temp; //set current hitch position to last position for preparing the next move
