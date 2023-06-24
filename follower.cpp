@@ -21,17 +21,18 @@ static inline float pow2(float x){
     //float h = sin(_beta_straight)*_s_straight;
 
 static inline float get_direction(float x, float y){
-    if(x == 0.0) // tan has a division by zero
-        return CPP_M_PI/2 * SIGN(y);
-    if(y < 0.0)
-        return atan(y/x) + CPP_M_PI;
-    else if(y > 0.0)
-        return atan(y/x);
-    else
-        if(x<0.0)
+    if(x < 0.0)
+        if(y == 0.0)
             return CPP_M_PI;
         else
+            return atan(y/x) + CPP_M_PI/2 * SIGN(y);
+    else if(x > 0.0)
+        if(y == 0.0)
             return 0;
+        else
+            return atan(y/x);
+    else
+        return CPP_M_PI/2 * SIGN(y);
 }
 
 void follower::move(){
