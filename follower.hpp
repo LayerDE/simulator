@@ -6,7 +6,6 @@ class follower : public position{
     private:
         car* connected_car;
         float lenght;
-        float beta();
         float beta(float car_direction);
         position last_hitch_pos;
         float calc_alpha_const(float beta);
@@ -15,5 +14,6 @@ class follower : public position{
         float angle;
 //        follower(float len, float hx, float hy, car* bbc);
         follower(car* bbc, float len, float hbeta);
+        float beta();
         void move();
 };
