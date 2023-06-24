@@ -20,9 +20,10 @@ void simulator::reset(){
     reset_output();
 }
 
-void simulator::output(){
+float simulator::output(){
         bb_out(bb->x,bb->y,bb->direction);
         trail_out(trail->x, trail->y, trail->direction);
+        return trail->beta();
 }
 
 void simulator::simulate(float lenght){
