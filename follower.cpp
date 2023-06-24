@@ -77,7 +77,7 @@ void follower::move(){
 }
 
 float follower::beta(){
-    return direction - connected_car->direction;
+    return beta(connected_car->direction);
 }
 
 float follower::beta(float car_direction){
