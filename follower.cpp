@@ -76,6 +76,46 @@ void follower::move(){
     last_hitch_pos = temp; //set current hitch position to last position for preparing the next move
 }
 
+void follower::move(){
+    position temp = connected_car->get_hitch();
+    float _x = temp.x - last_hitch_pos.x;
+    float _y = temp.y - last_hitch_pos.y;
+    float _s_straight = sqrt(pow2(_x) + pow2(_y));
+
+    float _straght_direction = get_direction(_x,_y);
+    float _beta_straight = direction - _straght_direction;
+    float direction_tmp;
+    if(_s_straight == 0.0)
+        return; // not moved
+    else if(_beta_straight == 0.0 || _beta_straight == CPP_M_PI || _beta_straight == -CPP_M_PI){
+        direction_tmp = _beta_straight;
+    }
+    else if(fabs(_beta_straight) < CPP_M_PI/2){
+        float _check_hypo = cos(_beta_straight) * lenght
+        if(_s_straight/2 < _check_hypo){
+
+        }
+        else if(_s_straight/2 > _check_hypo){
+
+        }
+        else/*_s_straight/2 == _check_hypo*/{
+
+        }
+    }
+    else if(fabs(_beta_straight) > CPP_M_PI/2){
+
+    }
+    else/*_beta_straight == CPP_M_PI/2*/{
+        direction_tmp = atan(lenght/_s_straight) * SIGN(_beta_straight);
+    }
+    x = temp.x; // set x to hitch pos
+    y = temp.y; // set y to hitch pos
+    direction = direction_tmp + _straght_direction; //set direction to new calculated trailer direction
+    correct_direction(); // set direction to ]-pi : pi[
+    move_straight(-lenght, 0); //  move to axle position
+    last_hitch_pos = temp; //set current hitch position to last position for preparing the next move
+}
+
 float follower::beta(){
     return direction - connected_car->direction;
 }
