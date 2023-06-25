@@ -19,6 +19,6 @@ class simulator{
         void simulate(float lenght);
         void set_output(point_out car,point_out trailer, bool sim_out);
         void reset_output();
-        void output();
+        float output();
         void reset();
 };

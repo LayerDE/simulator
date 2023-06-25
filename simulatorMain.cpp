@@ -48,7 +48,8 @@ int main(int argc, char *argv[]){
             sim[i]->set_output(car_point_out, trail_point_out,false);
             cout << "sim[" << i << "]" << endl;
             sim[i]->simulate(-0.1);
-            sim[i]->output();
+            float temp = rad2deg(sim[i]->output());
+            cout << "sim[" << i << "] beta:" << temp << endl;
         }
     }      
     cout << "Simulation finished" << endl;
