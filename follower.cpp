@@ -90,7 +90,7 @@ void follower::move(){
         direction_tmp = _beta_straight;
     }
     else if(fabs(_beta_straight) < CPP_M_PI/2){
-        float _check_hypo = cos(_beta_straight) * lenght
+        float _check_hypo = cos(_beta_straight) * lenght;
         if(_s_straight/2 < _check_hypo){
             float h = sin(_beta_straight) * _s_straight;
             direction_tmp = CPP_M_PI / 2 - _beta_straight + acos(h / lenght); // lenght always positive
