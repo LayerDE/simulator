@@ -20,7 +20,7 @@ static inline float pow2(float x){
 
     //float h = sin(_beta_straight)*_s_straight;
 
-static inline float get_direction(float x, float y){
+static inline float get_direction(float x, float y){ // final
     if(x < 0.0)
         if(y == 0.0)
             return CPP_M_PI;
@@ -31,10 +31,10 @@ static inline float get_direction(float x, float y){
             return 0;
         else
             return atan(y/x);
-    else
+    else // x == 0
         return CPP_M_PI/2 * SIGN(y);
 }
-
+/*
 void follower::move(){
     position temp = connected_car->get_hitch();
     float _x = temp.x - last_hitch_pos.x;
@@ -43,7 +43,7 @@ void follower::move(){
     if(_s_straight == 0.0)
         return; // not moved
     float _straght_direction = get_direction(_x,_y);
-    float _beta_straight = direction - _straght_direction;
+    float _beta_straight = _straght_direction - direction;
     float _s_half = cos(_beta_straight) * lenght;
     float direction_tmp;
     if(_s_half < _s_straight/2){ // schlechter ansatz
@@ -75,15 +75,14 @@ void follower::move(){
     move_straight(-lenght, 0); //  move to axle position
     last_hitch_pos = temp; //set current hitch position to last position for preparing the next move
 }
-
+*/
 void follower::move(){
     position temp = connected_car->get_hitch();
     float _x = temp.x - last_hitch_pos.x;
     float _y = temp.y - last_hitch_pos.y;
     float _s_straight = sqrt(pow2(_x) + pow2(_y));
-
     float _straght_direction = get_direction(_x,_y);
-    float _beta_straight = direction - _straght_direction;
+    float _beta_straight = correct_direction_recursive(direction - _straght_direction);
     float direction_tmp;
     if(_s_straight == 0.0)
         return; // not moved
@@ -93,17 +92,23 @@ void follower::move(){
     else if(fabs(_beta_straight) < CPP_M_PI/2){
         float _check_hypo = cos(_beta_straight) * lenght
         if(_s_straight/2 < _check_hypo){
-
+            float h = sin(_beta_straight) * _s_straight;
+            direction_tmp = CPP_M_PI / 2 - _beta_straight + acos(h / lenght); // lenght always positive
         }
         else if(_s_straight/2 > _check_hypo){
-
+            float h = sin(_beta_straight)*lenght;
+            float len = _s_straight - _check_hypo;
+            direction_tmp = CPP_M_PI - atan(h/len);
         }
         else/*_s_straight/2 == _check_hypo*/{
-
+            direction_tmp = CPP_M_PI * SIGN(_beta_straight) - _beta_straight;
         }
     }
     else if(fabs(_beta_straight) > CPP_M_PI/2){
-
+        float _beta_straight_tmp = CPP_M_PI - _beta_straight;
+        float len = cos(_beta_straight_tmp)*lenght + _s_straight;
+        float h = sin(_beta_straight_tmp)*lenght;
+        direction_tmp = atan(h/len);
     }
     else/*_beta_straight == CPP_M_PI/2*/{
         direction_tmp = atan(lenght/_s_straight) * SIGN(_beta_straight);

@@ -2,6 +2,8 @@
 
 #define SIGN(x) ((x > 0) ? 1 : ((x < 0) ? -1 : 0))
 
+float correct_direction_recursive(float in);
+
 extern const double CPP_M_PI;
 class position{
     public:

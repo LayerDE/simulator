@@ -23,7 +23,7 @@ position::position(){
     direction = 0;
 }
 
-static float correct_direction_recursive(float in){
+float correct_direction_recursive(float in){
     if(in > CPP_M_PI)
         return correct_direction_recursive(in - CPP_M_PI * 2);
     else if(in < -CPP_M_PI)
