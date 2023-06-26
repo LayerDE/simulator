@@ -32,3 +32,4 @@
 *.app
 
 /CMakeLists.txt
+/sim_config.h
