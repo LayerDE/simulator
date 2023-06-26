@@ -1,4 +1,4 @@
 #pragma once
 
-//#define DEBUG
-#define OLD_MOVE
+#define DEBUG
+//#define OLD_MOVE
