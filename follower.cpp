@@ -8,6 +8,8 @@
     #define DEBUG_TAG "follower.cpp: "
     #define debug_out(x) std::cout << DEBUG_TAG << x << std::endl
     float rad2deg(float in);
+#else
+    #define debug_out(x)
 #endif
 follower::follower(car* bbc, float len, float hbeta) // hbeta is relative
         : position(), last_hitch_pos(){
@@ -106,7 +108,7 @@ void follower::move(){
         if(_s_straight/2 < _check_hypo){ //
             debug_out("x<+-90° case 1");
             float h = sin(_beta_straight) * _s_straight;
-            direction_tmp = CPP_M_PI / 2 - (_beta_straight + acos(h / lenght)); // lenght always positive
+            direction_tmp = (_beta_straight + acos(h / lenght)) - CPP_M_PI / 2; // lenght always positive
         }
         else if(_s_straight/2 > _check_hypo){
             debug_out("x<+-90° case 2");
