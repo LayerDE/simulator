@@ -2,7 +2,13 @@
 #include "car.hpp"
 #include "follower.hpp"
 #include <cmath>
-
+#include "sim_config.h"
+#ifdef DEBUG
+    #include <iostream>
+    #define DEBUG_TAG "follower.cpp: "
+    #define debug_out(x) std::cout << DEBUG_TAG << x << std::endl
+    float rad2deg(float in);
+#endif
 follower::follower(car* bbc, float len, float hbeta) // hbeta is relative
         : position(), last_hitch_pos(){
     lenght = len;
@@ -20,21 +26,21 @@ static inline float pow2(float x){
 
     //float h = sin(_beta_straight)*_s_straight;
 
-static inline float get_direction(float x, float y){ // final
+static inline float get_direction(float x, float y){ // outputs trash
     if(x < 0.0)
         if(y == 0.0)
-            return CPP_M_PI;
+            return CPP_M_PI; //180° x negative, y = 0
         else
-            return atan(y/x) + CPP_M_PI/2 * SIGN(y);
+            return atan(y/x) + CPP_M_PI * SIGN(y);
     else if(x > 0.0)
         if(y == 0.0)
-            return 0;
+            return 0; // 0° x positive y = 0
         else
-            return atan(y/x);
+            return atan(y/x); // ]-90:90[° x positive, y != 0
     else // x == 0
         return CPP_M_PI/2 * SIGN(y);
 }
-/*
+#ifdef OLD_MOVE
 void follower::move(){
     position temp = connected_car->get_hitch();
     float _x = temp.x - last_hitch_pos.x;
@@ -75,7 +81,8 @@ void follower::move(){
     move_straight(-lenght, 0); //  move to axle position
     last_hitch_pos = temp; //set current hitch position to last position for preparing the next move
 }
-*/
+
+#else
 void follower::move(){
     position temp = connected_car->get_hitch();
     float _x = temp.x - last_hitch_pos.x;
@@ -84,6 +91,9 @@ void follower::move(){
     float _straght_direction = get_direction(_x,_y);
     float _beta_straight = correct_direction_recursive(direction - _straght_direction);
     float direction_tmp;
+#ifdef DEBUG
+    debug_out(rad2deg(_straght_direction));
+#endif
     if(_s_straight == 0.0)
         return; // not moved
     else if(_beta_straight == 0.0 || _beta_straight == CPP_M_PI || _beta_straight == -CPP_M_PI){
@@ -120,13 +130,13 @@ void follower::move(){
     move_straight(-lenght, 0); //  move to axle position
     last_hitch_pos = temp; //set current hitch position to last position for preparing the next move
 }
-
+#endif
 float follower::beta(){
     return beta(connected_car->direction);
 }
 
 float follower::beta(float car_direction){
-    return direction - car_direction;
+    return correct_direction_recursive(direction - car_direction);
 }
 
 
