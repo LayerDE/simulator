@@ -33,8 +33,5 @@ float correct_direction_recursive(float in){
 }
 
 void position::correct_direction(){
-    while(direction > CPP_M_PI)
-        direction -= CPP_M_PI * 2;
-    while(direction < -CPP_M_PI)
-        direction += CPP_M_PI * 2;
+    direction = correct_direction_recursive(direction);
 }
