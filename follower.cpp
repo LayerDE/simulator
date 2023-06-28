@@ -123,10 +123,9 @@ void follower::move(){
     }
     else if(fabs(_beta_straight) > CPP_M_PI/2){ //defekt
         debug_out("x>+-90°");
-        float _beta_straight_tmp = CPP_M_PI - _beta_straight;
-        float len = cos(_beta_straight_tmp)*lenght + _s_straight;
-        float h = sin(_beta_straight_tmp)*lenght;
-        direction_tmp = CPP_M_PI - atan(h/len);
+        float len = cos(_beta_straight)*lenght + _s_straight;
+        float h = sin(_beta_straight)*lenght;
+        direction_tmp = -CPP_M_PI + atan(h/len);
     }
     else/*_beta_straight == CPP_M_PI/2*/{
         debug_out("x==+-90°");
