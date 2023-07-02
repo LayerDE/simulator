@@ -15,13 +15,13 @@ float car::get_wb(){
     return wheelbase;
 }
 
-position car::get_hitch(){ // needs testing
+point car::get_hitch(){ // needs testing
     position out;
-    out.x = x;
-    out.y = y;
+    out.pos.x = pos.x;
+    out.pos.y = pos.y;
     out.direction = direction;
     out.move_straight(-get_r2h(),0);
-    return out;
+    return {.x = out.pos.x, .y = out.pos.y};
 }
 
 void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float &angle) // works for me

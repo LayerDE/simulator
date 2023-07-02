@@ -3,7 +3,7 @@
 #include "follower.hpp"
 
 
-typedef void (*point_out)(float x, float y, float direction);
+typedef void (*point_out)(point x0, float direction);
 
 class simulator{
     private:

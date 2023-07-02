@@ -3,6 +3,7 @@
 #include "position.hpp"
 #include "car.hpp"
 #include "simulator.hpp"
+
 #include <math.h>
 
 using namespace std;
@@ -22,12 +23,12 @@ void _point_out(const char* name, float x, float y, float direction){
 }
 
 
-void trail_point_out(float x, float y, float direction){
-    _point_out("Trailer", x, y, direction);
+void trail_point_out(point x0, float direction){
+    _point_out("Trailer", x0.x, x0.y, direction);
 }
 
-void car_point_out(float x, float y, float direction){
-    _point_out("Car", x, y, direction);
+void car_point_out(point x0, float direction){
+    _point_out("Car", x0.x, x0.y, direction);
 }
 
 // simulator(float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size)

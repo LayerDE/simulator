@@ -1,6 +1,7 @@
 #include "simulator.hpp"
+#include "sim_config.h"
 #include <cmath>
-void null_out(float x, float y, float direction){}
+void null_out(point x0, float direction){}
 
 void simulator::step(float step_lenght){
     bb->move(step_lenght);
@@ -21,8 +22,8 @@ void simulator::reset(){
 }
 
 float simulator::output(){
-        bb_out(bb->x,bb->y,bb->direction);
-        trail_out(trail->x, trail->y, trail->direction);
+        bb_out(bb->pos, bb->direction);
+        trail_out(trail->pos, trail->direction);
         return trail->beta();
 }
 

@@ -16,8 +16,7 @@ follower::follower(car* bbc, float len, float hbeta) // hbeta is relative
     lenght = len;
     connected_car = bbc;
     last_hitch_pos = connected_car->get_hitch();
-    x = last_hitch_pos.x;
-    y = last_hitch_pos.y;
+    pos = last_hitch_pos;
     direction += hbeta; // add angle
     move_straight(-lenght,0); // set trailer to position
 }
@@ -86,7 +85,7 @@ void follower::move(){
 
 #else
 void follower::move(){
-    position temp = connected_car->get_hitch();
+    point temp = connected_car->get_hitch();
     float _x = temp.x - last_hitch_pos.x;
     float _y = temp.y - last_hitch_pos.y;
     float _s_straight = sqrt(pow2(_x) + pow2(_y));
@@ -131,8 +130,7 @@ void follower::move(){
         debug_out("x==+-90°");
         direction_tmp = atan(lenght/_s_straight) * SIGN(_beta_straight);
     }
-    x = temp.x; // set x to hitch pos
-    y = temp.y; // set y to hitch pos
+    pos = temp; // set pos to hitch pos
     direction = direction_tmp + _straght_direction; //set direction to new calculated trailer direction
     correct_direction(); // set direction to ]-pi : pi[
     move_straight(-lenght, 0); //  move to axle position
