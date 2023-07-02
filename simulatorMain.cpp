@@ -23,11 +23,11 @@ void _point_out(const char* name, float x, float y, float direction){
 }
 
 
-void trail_point_out(point x0, float direction){
+void trail_point_out(void* context, point x0, float direction){
     _point_out("Trailer", x0.x, x0.y, direction);
 }
 
-void car_point_out(point x0, float direction){
+void car_point_out(void* context, point x0, float direction){
     _point_out("Car", x0.x, x0.y, direction);
 }
 
@@ -39,8 +39,8 @@ int main(int argc, char *argv[]){
     const float followerbeta = deg2rad(0);
 //    const float stepsize = 0.001;
     cout << "Simulator init..." << endl;
-    simulator* sim[sim_cnt] = {new simulator(bbx, bby, bbwb, bbr2h, bbangle, -bbalpha, followerlen, followerbeta, 0.0001)
-    ,new simulator(bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.001)};
+    simulator* sim[sim_cnt] = {new simulator(0, bbx, bby, bbwb, bbr2h, bbangle, -bbalpha, followerlen, followerbeta, 0.0001)
+    ,new simulator(0, bbx, bby, bbwb, bbr2h, bbangle, bbalpha, followerlen, followerbeta, 0.001)};
     cout << "Simulate..." << endl;
     while(1){
         cout << "wait" << endl;

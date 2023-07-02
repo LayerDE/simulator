@@ -1,20 +1,22 @@
 #include "simulator.hpp"
 #include "sim_config.h"
 #include <cmath>
-void null_out(point x0, float direction){}
+void null_out(void* context, point x0, float direction){}
 
 void simulator::step(float step_lenght){
     bb->move(step_lenght);
     trail->move();
-
+    distance += abs(step_lenght);
 }
 
-simulator::simulator(float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size){
+simulator::simulator(void* hcontext, float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size){
     bb = new car(bbwb, bbr2h, bbx, bby, bbangle, bbalpha);
     trail = new follower(bb, followerlen, followerbeta);
     use_output = false;
     trail_out = bb_out = null_out;
     step_lenght = fabs(step_size);
+    distance = 0;
+    context = hcontext;
 }
 
 void simulator::reset(){
@@ -22,8 +24,8 @@ void simulator::reset(){
 }
 
 float simulator::output(){
-        bb_out(bb->pos, bb->direction);
-        trail_out(trail->pos, trail->direction);
+        bb_out(context, bb->pos, bb->direction);
+        trail_out(context, trail->pos, trail->direction);
         return trail->beta();
 }
 
@@ -51,4 +53,8 @@ void simulator::set_output(point_out car,point_out trailer, bool sim_out){
 void simulator::reset_output(){
     use_output = false;
     trail_out = bb_out = null_out;
+}
+
+float simulator::get_distance(){
+    return distance;
 }

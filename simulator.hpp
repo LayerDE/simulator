@@ -3,10 +3,11 @@
 #include "follower.hpp"
 
 
-typedef void (*point_out)(point x0, float direction);
+typedef void (*point_out)(void* context, point x0, float direction);
 
 class simulator{
     private:
+        void* context;
         bool use_output;
         float step_lenght;
         point_out bb_out;
@@ -14,11 +15,13 @@ class simulator{
         car* bb;
         follower* trail;
         void step(float move_lenght);
+        float distance;
     public:
-        simulator(float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size);
+        simulator(void* hcontext, float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size);
         void simulate(float lenght);
         void set_output(point_out car,point_out trailer, bool sim_out);
         void reset_output();
         float output();
         void reset();
+        float get_distance();
 };
