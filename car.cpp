@@ -15,6 +15,8 @@ float car::get_wb(){
     return wheelbase;
 }
 
+car::~car(){}
+
 point car::get_hitch(){ // needs testing
     position out;
     out.pos.x = pos.x;

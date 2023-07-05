@@ -20,8 +20,8 @@ simulator::simulator(void* hcontext, float bbx, float bby, float bbwb, float bbr
 }
 
 simulator::~simulator(){
-    //delete bb;
-    //delete trail;
+    delete bb;
+    delete trail;
 }
 
 void simulator::reset(){

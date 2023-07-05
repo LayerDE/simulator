@@ -11,6 +11,7 @@ class follower : public position{
     public:
         float angle;
         follower(car* bbc, float len, float hbeta);
+        virtual  ~follower();
         void set_to_car(float hbeta);
         float beta();
         void move();

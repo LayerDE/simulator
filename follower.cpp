@@ -18,6 +18,8 @@ follower::follower(car* bbc, float len, float hbeta) // hbeta is relative
     set_to_car(hbeta);
 }
 
+follower::~follower(){}
+
 void follower::set_to_car(float hbeta){
     pos = last_hitch_pos = connected_car->get_hitch();
     direction = connected_car->direction + hbeta; // add angle
