@@ -19,6 +19,11 @@ simulator::simulator(void* hcontext, float bbx, float bby, float bbwb, float bbr
     context = hcontext;
 }
 
+simulator::~simulator(){
+    delete bb;
+    delete trail;
+}
+
 void simulator::reset(){
     reset_output();
 }
@@ -42,6 +47,17 @@ void simulator::simulate(float lenght){
         if(use_output)
             output();
     }
+}
+
+void simulator::set_values(float bbx, float bby, float bbangle, float bbalpha, float followerbeta){
+    bb->pos.x = bbx;
+    bb->pos.y = bby;
+    bb->direction = bbangle;
+    set_alpha(bbalpha);
+    trail->set_to_car(followerbeta);
+}
+void simulator::set_alpha(float bbalpha){
+    bb->alpha = bbalpha;
 }
 
 void simulator::set_output(point_out car,point_out trailer, bool sim_out){

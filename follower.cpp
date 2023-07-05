@@ -15,9 +15,12 @@ follower::follower(car* bbc, float len, float hbeta) // hbeta is relative
         : position(), last_hitch_pos(){
     lenght = len;
     connected_car = bbc;
-    last_hitch_pos = connected_car->get_hitch();
-    pos = last_hitch_pos;
-    direction += hbeta; // add angle
+    set_to_car(hbeta);
+}
+
+void follower::set_to_car(float hbeta){
+    pos = last_hitch_pos = connected_car->get_hitch();
+    direction = connected_car->direction + hbeta; // add angle
     move_straight(-lenght,0); // set trailer to position
 }
 

@@ -10,6 +10,7 @@ class follower : public position{
         point last_hitch_pos;
     public:
         float angle;
+        set_to_car(float hbeta);
 //        follower(float len, float hx, float hy, car* bbc);
         follower(car* bbc, float len, float hbeta);
         float beta();

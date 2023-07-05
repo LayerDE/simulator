@@ -18,10 +18,13 @@ class simulator{
         float distance;
     public:
         simulator(void* hcontext, float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size);
+        ~simulator();
+        set_alpha(float bbalpha);
         void simulate(float lenght);
         void set_output(point_out car,point_out trailer, bool sim_out);
         void reset_output();
         float output();
         void reset();
         float get_distance();
+        void set_values(float bbx, float bby, float bbangle, float bbalpha, float followerbeta);
 };
