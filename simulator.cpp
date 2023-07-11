@@ -6,7 +6,7 @@ void null_out(void* context, point x0, float direction){}
 void simulator::step(float step_lenght){
     bb->move(step_lenght);
     trail->move();
-    distance += abs(step_lenght);
+    distance += fabs(step_lenght);
 }
 
 simulator::simulator(void* hcontext, float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size){
