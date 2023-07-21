@@ -23,7 +23,10 @@ point car::get_hitch(){ // needs testing
     out.pos.y = pos.y;
     out.direction = direction;
     out.move_straight(-get_r2h(),0);
-    return {.x = out.pos.x, .y = out.pos.y};
+    point ret_val;
+    ret_val.x = out.pos.x;
+    ret_val.y = out.pos.y;
+    return ret_val;
 }
 
 void car::calc_curve(float lenght, float alpha_steer, float &x, float &y, float &angle) // works for me
