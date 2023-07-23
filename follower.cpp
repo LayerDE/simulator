@@ -48,7 +48,7 @@ static inline float get_direction(float x, float y){ // outputs trash
 }
 #ifdef OLD_MOVE
 void follower::move(){
-    position temp = connected_car->get_hitch();
+    point temp = connected_car->get_hitch();
     float _x = temp.x - last_hitch_pos.x;
     float _y = temp.y - last_hitch_pos.y;
     float _s_straight = sqrt(pow2(_x) + pow2(_y));
@@ -80,8 +80,8 @@ void follower::move(){
     else{ //_s_half == _s_straight/2
         direction_tmp = CPP_M_PI - _beta_straight; // sollte passen
     }
-    x = temp.x; // set x to hitch pos
-    y = temp.y; // set y to hitch pos
+    pos.x = temp.x; // set x to hitch pos
+    pos.y = temp.y; // set y to hitch pos
     direction = direction_tmp + _straght_direction; //set direction to new calculated trailer direction
     correct_direction(); // set direction to ]-pi : pi[
     move_straight(-lenght, 0); //  move to axle position
@@ -116,9 +116,9 @@ void follower::move(){
         }
         else if(_s_straight/2 > _check_hypo){
             debug_out("x<+-90° case 2");
-            float h = sin(_beta_straight)*lenght;
+            float h = sin(_beta_straight) * lenght;
             float len = _s_straight - _check_hypo;
-            direction_tmp = CPP_M_PI - atan(h/len);
+            direction_tmp = CPP_M_PI * SIGN(_beta_straight) - atan(h/len);
         }
         else/*_s_straight/2 == _check_hypo*/{
             debug_out("x<+-90° case 0=0");
