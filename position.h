@@ -1,3 +1,3 @@
 #pragma once
 
-typedef struct {float x; float y;} point;
+typedef struct {double x; double y;} point;

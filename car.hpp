@@ -3,15 +3,15 @@
 
 class car : public position{
     private:
-        float wheelbase;
-        float rear2hitch;
+        double wheelbase;
+        double rear2hitch;
     public:
         point get_hitch();
-        float get_wb();
-        float get_r2h();
-        car(float wb, float rh, float hx, float hy, float hdirection, float halpha);
+        double get_wb();
+        double get_r2h();
+        car(double wb, double rh, double hx, double hy, double hdirection, double halpha);
         virtual ~car();
-        float alpha;
-        void calc_curve(float lenght, float alpha_steer, float &x, float &y, float &angle);
-        void move(float move_lenght);
+        double alpha;
+        void calc_curve(double lenght, double alpha_steer, double &x, double &y, double &angle);
+        void move(double move_lenght);
 };

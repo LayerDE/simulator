@@ -1,15 +1,15 @@
 #include "simulator.hpp"
 #include "sim_config.h"
 #include <cmath>
-void null_out(void* context, point x0, float direction){}
+void null_out(void* context, point x0, double direction){}
 
-void simulator::step(float step_lenght){
+void simulator::step(double step_lenght){
     bb->move(step_lenght);
     trail->move();
     distance += fabs(step_lenght);
 }
 
-simulator::simulator(void* hcontext, float bbx, float bby, float bbwb, float bbr2h, float bbangle, float bbalpha, float followerlen, float followerbeta, float step_size){
+simulator::simulator(void* hcontext, double bbx, double bby, double bbwb, double bbr2h, double bbangle, double bbalpha, double followerlen, double followerbeta, double step_size){
     bb = new car(bbwb, bbr2h, bbx, bby, bbangle, bbalpha);
     trail = new follower(bb, followerlen, followerbeta);
     use_output = false;
@@ -28,13 +28,13 @@ void simulator::reset(){
     reset_output();
 }
 
-float simulator::output(){
+double simulator::output(){
         bb_out(context, bb->pos, bb->direction);
         trail_out(context, trail->pos, trail->direction);
         return trail->beta();
 }
 
-void simulator::simulate(float lenght){
+void simulator::simulate(double lenght){
     while(lenght != 0.0){
         if(fabs(lenght) > step_lenght){
             step(SIGN(lenght) * step_lenght);
@@ -49,14 +49,14 @@ void simulator::simulate(float lenght){
     }
 }
 
-void simulator::set_values(float bbx, float bby, float bbangle, float bbalpha, float followerbeta){
+void simulator::set_values(double bbx, double bby, double bbangle, double bbalpha, double followerbeta){
     bb->pos.x = bbx;
     bb->pos.y = bby;
     bb->direction = bbangle;
     set_alpha(bbalpha);
     trail->set_to_car(followerbeta);
 }
-void simulator::set_alpha(float bbalpha){
+void simulator::set_alpha(double bbalpha){
     bb->alpha = bbalpha;
 }
 
@@ -71,6 +71,6 @@ void simulator::reset_output(){
     trail_out = bb_out = null_out;
 }
 
-float simulator::get_distance(){
+double simulator::get_distance(){
     return distance;
 }

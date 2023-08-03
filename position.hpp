@@ -1,16 +1,16 @@
 #pragma once
 #include "position.h"
 
-float correct_direction_recursive(float in);
+double correct_direction_recursive(double in);
 
 extern const double CPP_M_PI;
 class position{
     public:
         position();
-        position(float hx,float hy,float hdirection);
-        float direction;
+        position(double hx,double hy,double hdirection);
+        double direction;
         point pos;
-        virtual void move(float move_lenght);
+        virtual void move(double move_lenght);
         void correct_direction();
-        void move_straight(float lenght, float height);
+        void move_straight(double lenght, double height);
 };

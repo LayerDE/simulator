@@ -2,16 +2,16 @@
 #include "position.hpp"
 const double CPP_M_PI = atan(1)*4.0;
 
-void position::move_straight(float lenght, float height){
+void position::move_straight(double lenght, double height){
         pos.x += cos(direction)*lenght + sin(direction)*height;
         pos.y += sin(direction)*lenght + cos(direction)*height;
 }
 
-void position::move(float move_lenght){
+void position::move(double move_lenght){
     move_straight(move_lenght,0);   
 }
 
-position::position(float hx,float hy,float hdirection){
+position::position(double hx,double hy,double hdirection){
     pos.x = hx;
     pos.y = hy;
     direction = hdirection;
@@ -23,7 +23,7 @@ position::position(){
     direction = 0;
 }
 
-float correct_direction_recursive(float in){
+double correct_direction_recursive(double in){
     if(in > CPP_M_PI)
         return correct_direction_recursive(in - CPP_M_PI * 2);
     else if(in < -CPP_M_PI)
