@@ -7,8 +7,8 @@
     #include <iostream>
     #define DEBUG_TAG "follower.cpp: "
     #define debug_out(x) std::cout << DEBUG_TAG << x << std::endl
-    #define ang(x) rad2deg(correct_direction_recursive(x))
-    float rad2deg(float in);
+static double rad2deg_tmp(double in){return in * 45.0 / atan(1);}
+    #define ang(x) rad2deg_tmp(correct_direction_recursive(x))
 #else
     #define debug_out(x)
 #endif
