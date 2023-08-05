@@ -7,6 +7,7 @@
     #include <iostream>
     #define DEBUG_TAG "follower.cpp: "
     #define debug_out(x) std::cout << DEBUG_TAG << x << std::endl
+    #define ang(x) rad2deg(correct_direction_recursive(x))
     float rad2deg(float in);
 #else
     #define debug_out(x)
@@ -97,42 +98,46 @@ void follower::move(){
     double _straght_direction = get_direction(_x,_y);
     double _beta_straight = correct_direction_recursive(direction - _straght_direction);
     double direction_tmp;
-#ifdef DEBUG
-    debug_out(rad2deg(_straght_direction) << " : " << rad2deg(_beta_straight));
-#endif
     if(_s_straight == 0.0)
         return; // not moved
     else if(_beta_straight == 0.0 || _beta_straight == CPP_M_PI || _beta_straight == -CPP_M_PI){
-        debug_out("0°||+-360°");
+        debug_out("0 ||+-360");
         direction_tmp = _beta_straight;
     }
     else if(fabs(_beta_straight) < CPP_M_PI/2){
         
         double _check_hypo = cos(_beta_straight) * lenght;
         if(_s_straight/2 < _check_hypo){ //
-            debug_out("x<+-90° case 1");
+            debug_out("x<+-90 c1");
             double h = sin(_beta_straight) * _s_straight;
-            direction_tmp = (_beta_straight + acos(h / lenght)) - CPP_M_PI / 2; // lenght always positive
+            double d1 = CPP_M_PI / 2 - _beta_straight;
+            double d2 = acos(h / lenght);
+            direction_tmp = CPP_M_PI/2 - d1 - d2; // lenght always positive
         }
         else if(_s_straight/2 > _check_hypo){
-            debug_out("x<+-90° case 2");
+            debug_out("x<+-90 c2");
             double h = sin(_beta_straight) * lenght;
             double len = _s_straight - _check_hypo;
             direction_tmp = CPP_M_PI * SIGN(_beta_straight) - atan(h/len);
         }
         else/*_s_straight/2 == _check_hypo*/{
-            debug_out("x<+-90° case 0=0");
+            debug_out("x<+-90 c0=0");
             direction_tmp = CPP_M_PI * SIGN(_beta_straight) - _beta_straight;
         }
     }
-    else if(fabs(_beta_straight) > CPP_M_PI/2){ //defekt
-        debug_out("x>+-90°");
-        double len = cos(_beta_straight)*lenght + _s_straight;
-        double h = sin(_beta_straight)*lenght;
-        direction_tmp = -CPP_M_PI + atan(h/len);
+    else if(fabs(_beta_straight) > CPP_M_PI/2){ //quite simlar to c2
+        debug_out("x>+-90");
+        double beta_straight_90 = CPP_M_PI - _beta_straight;
+        double len = cos(beta_straight_90)*lenght + _s_straight;
+        double h = sin(beta_straight_90)*lenght;
+        //double h = sin(_beta_straight) * lenght;
+        //double len = cos(_beta_straight) * lenght + _s_straight;
+        direction_tmp = CPP_M_PI * SIGN(_beta_straight) - atan(h / len);
+        debug_out("len: " << len << ", h: " << h << ", b_s: " << ang(beta_straight_90));
+        direction_tmp = CPP_M_PI * SIGN(_beta_straight) - atan(h / len);
     }
     else/*_beta_straight == CPP_M_PI/2*/{
-        debug_out("x==+-90°");
+        debug_out("x==+-90");
         direction_tmp = atan(lenght/_s_straight) * SIGN(_beta_straight);
     }
     pos = temp; // set pos to hitch pos
@@ -140,6 +145,9 @@ void follower::move(){
     correct_direction(); // set direction to ]-pi : pi[
     move_straight(-lenght, 0); //  move to axle position
     last_hitch_pos = temp; //set current hitch position to last position for preparing the next move
+    #ifdef DEBUG
+        debug_out("direction: " << ang(_straght_direction) << ", beta: " << ang(_beta_straight) << ", s: " << _s_straight << ", tmp: " << ang(direction_tmp));
+    #endif
 }
 #endif
 double follower::beta(){
